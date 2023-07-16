@@ -12,8 +12,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-app.run(debug=True)
-
 # Configure sqlalchemy engine object to use sqlite database
 engine = create_engine("sqlite:///database.db")
 
@@ -31,4 +29,7 @@ def after_request(response):
 
 @app.route("/")
 def index():
-    return render_template("layout1.html")
+    return render_template("layout.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
