@@ -10,6 +10,10 @@
                 extend: {
                   colors: {
                     default: '#1D1D1F',
+                    yellow: {
+                        1: '#F7C873',
+                        2: '#FAEBCD'
+                    }
                   }
                 }
               }
@@ -19,7 +23,7 @@
         <title>Epla: {% block title %}{% endblock %}</title>
     </head>
     <body class="bg-default font-default font-medium">
-        <div class="border-b border-amber-100 p-5">
+        <div class="border-b border-yellow-2 p-5">
             <div class="container grid grid-cols-3 items-center">
                 <img src="/static/images/EPLA.svg">
                 <nav class="col-span-2 col-start-2">
@@ -32,7 +36,7 @@
                     {% else %}
                         <ul class="flex items-center justify-end space-x-5">
                             <li class="px-5 text-white"><a href="/login">Login</a></li>
-                            <li class="px-5 bg-amber-300"><a href="/register">Register</a></li>
+                            <li class="px-5 bg-yellow-1 rounded"><a href="/register">Register</a></li>
                         </ul>
                     {% endif %}
                 </nav>
