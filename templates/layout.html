@@ -22,7 +22,7 @@
         <link href="/static/css/styles.css" rel="stylesheet">
         <title>Epla: {% block title %}{% endblock %}</title>
     </head>
-    <body class="bg-default font-default font-medium">
+    <body class="flex flex-col min-h-screen justify-between bg-default font-default font-medium">
         <div class="border-b border-yellow-2 p-5">
             <div class="container grid grid-cols-3 items-center">
                 <img src="/static/images/EPLA.svg">
@@ -36,7 +36,7 @@
                     {% else %}
                         <ul class="flex items-center justify-end space-x-5">
                             <li class="px-5 text-white"><a href="/login">Login</a></li>
-                            <li class="px-5 bg-yellow-1 rounded"><a href="/register">Register</a></li>
+                            <li class="px-5 bg-yellow-1 rounded-md"><a href="/register">Register</a></li>
                         </ul>
                     {% endif %}
                 </nav>
@@ -47,10 +47,10 @@
 
             </header>
         {% endif %}
-        <main>
+        <main class="flex items-center justify-center">
             {% block main %}{% endblock %}
         </main> 
-        <footer class="flex items-center justify-center">
+        <footer class="flex items-center justify-center mb-5">
             <p class="font-light text-xs text-white">© 2023 All Rights Reserved. EPLA</p>
         </footer>
     </body>
