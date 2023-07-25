@@ -29,13 +29,13 @@
                 <nav class="col-span-2 col-start-2">
                     {% if session["user_id"] %}
                         <ul class="flex items-center ml-14 space-x-5">
-                            <li class="px-5 text-white"><a href="/exercises">Exercises</a></li>
-                            <li class="px-5 text-white"><a href="/schedule">Schedule</a></li>
-                            <li class="px-5 text-white"><a href="/settings">Settings</a></li>
+                            <li class="mx-5 text-white"><a href="/exercises">Exercises</a></li>
+                            <li class="mx-5 text-white"><a href="/schedule">Schedule</a></li>
+                            <li class="mx-5 text-white"><a href="/settings">Settings</a></li>
                         </ul>
                     {% else %}
                         <ul class="flex items-center justify-end space-x-5">
-                            <li class="px-5 text-white"><a href="/login">Login</a></li>
+                            <li class="mx-5 text-white"><a href="/login">Login</a></li>
                             <li class="px-5 bg-yellow-1 rounded-md"><a href="/register">Register</a></li>
                         </ul>
                     {% endif %}

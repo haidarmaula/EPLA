@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block main %}
+    <img src="/static/images/barbell.jpg " class="absolute w-screen h-screen object-cover bottom-0 -z-10">
     <div class="w-80 h-80 rounded-lg bg-white bg-opacity-30">
         <div class="container mx-auto h-full flex flex-col items-center">
             <h1 class="basis-1/12 text-2xl font-bold p-5 text-yellow-2">Login</h1>
             <form action="/login" method="post" class="basis-7/12 flex flex-col justify-center items-center space-y-6">
                 <div class="flex">
-                    <!--<label for="username">Username</label>-->
                     <input type="text" id="username" required placeholder="Username" class="bg-transparent border-b outline-none caret-yellow-2 placeholder-white font-light text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FAEBCD" class="w-6 h-6 mt-px border-b">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
