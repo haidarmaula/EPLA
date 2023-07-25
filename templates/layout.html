@@ -28,14 +28,14 @@
             <nav class="absolute w-full right-0">
                 {% if session["user_id"] %}
                     <ul class="flex items-center justify-center">
-                        <li class="mx-5 text-white"><a href="/exercises">Exercises</a></li>
-                        <li class="mx-5 text-white"><a href="/schedule">Schedule</a></li>
-                        <li class="mx-5 text-white"><a href="/settings">Settings</a></li>
+                        <li class="mx-5 text-white"><a href="/exercises" class="transition-all duration-75 hover:border-b-2 rounded-sm">Exercises</a></li>
+                        <li class="mx-5 text-white"><a href="/schedule" class="transition-all duration-75 hover:border-b-2 rounded-sm">Schedule</a></li>
+                        <li class="mx-5 text-white"><a href="/settings" class="transition-all duration-75 hover:border-b-2 rounded-sm">Settings</a></li>
                     </ul>
                 {% else %}
                     <ul class="flex items-center justify-end">
-                        <li class="mx-5 text-white"><a href="/login">Login</a></li>
-                        <li class="mx-5 px-5 bg-yellow-1 rounded-md"><a href="/register">Register</a></li>
+                        <li class="mx-5 text-white"><a href="/login" class="transition-all duration-75 hover:border-b-2 rounded-sm">Login</a></li>
+                        <li class="mx-5 px-5 bg-yellow-1 rounded-md shadow-md hover:bg-yellow-2 transition-colors"><a href="/register">Register</a></li>
                     </ul>
                 {% endif %}
             </nav>

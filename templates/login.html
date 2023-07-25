@@ -6,7 +6,7 @@
 
 {% block main %}
     <img src="/static/images/barbell.jpg " class="absolute w-screen object-cover bottom-0 -z-10">
-    <div class="w-80 h-80 rounded-lg bg-white bg-opacity-30">
+    <div class="w-80 h-80 rounded-lg bg-default bg-opacity-30">
         <div class="container flex flex-col h-full items-center">
             <h1 class="basis-1/12 p-5 font-bold text-2xl text-yellow-2">Login</h1>
             <form action="/login" method="post" class="basis-7/12 flex flex-col justify-center items-center space-y-5">
@@ -22,7 +22,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                     </svg>                      
                 </div>
-                <button type="submit" class="w-full py-1 rounded-md bg-black font-medium text-sm text-white">Login</button>
+                <button type="submit" class="w-full py-1 rounded-md bg-black font-medium text-sm text-white hover:bg-default transition-colors">Login</button>
             </form>
             <p class="p-5 font-light text-xs text-white">Don't have an account? <a href="/register" class="font-medium">Register</a></p>
         </div>
