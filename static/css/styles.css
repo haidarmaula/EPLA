@@ -3,3 +3,7 @@
 .font-default {
     font-family: 'Poppins', sans-serif;
 }
+
+option {
+    font-weight: 300;
+}

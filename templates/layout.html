@@ -9,7 +9,10 @@
               theme: {
                 extend: {
                   colors: {
-                    default: '#1D1D1F',
+                    default: {
+                        1: '#1D1D1F',
+                        2: '#606060'
+                    },
                     yellow: {
                         1: '#F7C873',
                         2: '#FAEBCD'
@@ -22,7 +25,7 @@
         <link href="/static/css/styles.css" rel="stylesheet">
         <title>Epla: {% block title %}{% endblock %}</title>
     </head>
-    <body class="flex flex-col min-h-screen justify-between bg-default font-default font-medium">
+    <body class="flex flex-col min-h-screen justify-between bg-default-1 font-default font-medium">
         <div class="flex items-center border-b border-yellow-2 p-5">
             <a href="/index" class="z-10">
                 <img src="/static/images/EPLA.svg">
@@ -30,13 +33,13 @@
             <nav class="absolute w-full right-0">
                 {% if not session["user_id"] %}
                     <ul class="flex items-center justify-center">
-                        <li class="mx-5 text-white"><a href="/exercises" class="transition-all duration-75 hover:border-b-2 rounded-sm">Exercises</a></li>
-                        <li class="mx-5 text-white"><a href="/schedule" class="transition-all duration-75 hover:border-b-2 rounded-sm">Schedule</a></li>
-                        <li class="mx-5 text-white"><a href="/settings" class="transition-all duration-75 hover:border-b-2 rounded-sm">Settings</a></li>
+                        <li class="mx-5 text-white"><a href="/exercises" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Exercises</a></li>
+                        <li class="mx-5 text-white"><a href="/schedule" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Schedule</a></li>
+                        <li class="mx-5 text-white"><a href="/settings" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Settings</a></li>
                     </ul>
                 {% else %}
                     <ul class="flex items-center justify-end">
-                        <li class="mx-5 text-white"><a href="/login" class="transition-all duration-75 hover:border-b-2 rounded-sm">Login</a></li>
+                        <li class="mx-5 text-white"><a href="/login" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Login</a></li>
                         <li class="mx-5 px-5 bg-yellow-1 rounded-md shadow-md hover:bg-yellow-2 transition-colors"><a href="/register">Register</a></li>
                     </ul>
                 {% endif %}
