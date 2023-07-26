@@ -29,7 +29,7 @@ def after_request(response):
 
 @app.route("/")
 def index():
-    return render_template("register.html")
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

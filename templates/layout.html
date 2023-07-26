@@ -24,9 +24,11 @@
     </head>
     <body class="flex flex-col min-h-screen justify-between bg-default font-default font-medium">
         <div class="flex items-center border-b border-yellow-2 p-5">
-            <img src="/static/images/EPLA.svg">
+            <a href="/index" class="z-10">
+                <img src="/static/images/EPLA.svg">
+            </a>
             <nav class="absolute w-full right-0">
-                {% if session["user_id"] %}
+                {% if not session["user_id"] %}
                     <ul class="flex items-center justify-center">
                         <li class="mx-5 text-white"><a href="/exercises" class="transition-all duration-75 hover:border-b-2 rounded-sm">Exercises</a></li>
                         <li class="mx-5 text-white"><a href="/schedule" class="transition-all duration-75 hover:border-b-2 rounded-sm">Schedule</a></li>
