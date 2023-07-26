@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Login
+    Register
 {% endblock %}
 
 {% block main %}
-    <img src="/static/images/barbell.jpg " class="absolute w-screen object-cover bottom-0 -z-10">
+    <img src="/static/images/barbell.jpg " class="absolute w-screen h-screen lg:h-fit object-cover bottom-0 -z-10">
     <div class="w-80 h-80 rounded-xl bg-default bg-opacity-50">
-        <div class="container flex flex-col h-full items-center">
+        <div class="flex flex-col h-full items-center">
             <h1 class="basis-1/12 p-5 font-bold text-2xl text-yellow-2">Register</h1>
             <form action="/register" method="post" class="basis-7/12 flex flex-col justify-center items-center space-y-5">
                 <div class="flex">
