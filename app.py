@@ -30,6 +30,10 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+@app.route("/")
+def index():
+    return render_template("settings.html")
+
 def is_sub_dict(sub_dict, main_dict):
     """Determines whether a dict is a sub-dict of another dict"""
     for key, value in sub_dict.items():
