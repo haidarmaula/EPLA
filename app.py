@@ -44,18 +44,17 @@ def register():
         
         con, cur = database()
 
-        cur.execute("SELECT username FROM users WHERE username = ?", username)
-        row = cur.fetchall()
+        cur.execute("SELECT username FROM users WHERE username = (?)", (username,))
+        row = cur.fetchone()
 
         if row:
             return render_template("register.html", message="Username already exists!")
         
-        cur.execute("INSERT INTO users(username, hash) VALUES(?, ?)", username, generate_password_hash(password))
+        cur.execute("INSERT INTO users(username, hash) VALUES(?, ?)", (username, generate_password_hash(password)))
         con.commit()
 
-        cur.execute("SELECT id FROM users WHERE username = ?", username)
-        user_id = cur.fetchone()[0]
-        session["user_id"] = user_id
+        cur.execute("SELECT id FROM users WHERE username = (?)", (username,))
+        session["user_id"] = cur.fetchone()[0]
 
         cur.close()
         con.close()
