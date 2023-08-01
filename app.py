@@ -40,11 +40,13 @@ def login():
 
 
 @app.route("/")
+@login_required
 def index():
     return render_template("index.html")
 
 
 @app.route("/exercises", methods=["GET", "POST"])
+@login_required
 def exercises():
     if request.method == "POST":
         api_url = "https://api.api-ninjas.com/v1/exercises?"
@@ -78,11 +80,13 @@ def exercises():
 
 
 @app.route("/schedules")
+@login_required
 def schedules():
     return render_template("/schedules")
 
 
 @app.route("/settings", methods=["GET", "POST"])
+@login_required
 def settings():
     return render_template("/settings")
 
