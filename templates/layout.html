@@ -31,7 +31,7 @@
                 <img src="/static/images/EPLA.svg">
             </a>
             <nav class="absolute w-full right-0">
-                {% if not session["user_id"] %}
+                {% if session["user_id"] %}
                     <ul class="flex items-center justify-center">
                         <li class="mx-5 text-white"><a href="/exercises" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Exercises</a></li>
                         <li class="mx-5 text-white"><a href="/schedules" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Schedules</a></li>
