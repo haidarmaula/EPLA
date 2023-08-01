@@ -69,6 +69,31 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        if not username or not password:
+            return render_template("login.html", message="Must provide Username and Password!")
+        
+        con, cur = database()
+
+        cur.execute("SELECT * FROM USERS WHERE username = ?", username)
+        row = cur.fetchone()
+
+        if not row:
+            return render_template("login.html", message="Invalid Username!")
+        
+        if not check_password_hash(row[2], password):
+            return render_template("login.html", message="Invalid Password!")
+        
+        session["user_id"] = row[0]
+
+        cur.close()
+        con.close()
+
+        return redirect("/")
+
     return render_template("login.html")
 
 
