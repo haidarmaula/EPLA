@@ -153,7 +153,51 @@ def schedules():
 @app.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
-    return render_template("/settings")
+    if request.method == "POST":
+        if request.form.get("new-username"):
+            new_username = request.form.get("new-username")
+
+            con, cur = database()
+
+            cur.execute("SELECT * FROM users WHERE username = (?)", (new_username,))
+            row = cur.fetchone()
+
+            if row:
+                return render_template("settings.html", message="Username already exists!")
+            
+            cur.execute("UPDATE users SET username = (?) WHERE id = (?)", (new_username, session["user_id"]))
+            con.commit()
+
+            flash("You have successfully changed your username!")
+
+            return redirect("/settings")
+        
+        current_password = request.form.get("current-password")
+        new_password = request.form.get("new-password")
+        confirmation = request.form.get("confirmation")
+
+        if not current_password or not new_password or not confirmation:
+            return render_template("settings.html", message="Must provide current password, new password, and confirmation!")
+        
+        if new_password != confirmation:
+            return render_template("settings.html", message="New password and confirmation must match!")  
+
+        con, cur = database()
+
+        cur.execute("SELECT hash FROM users WHERE id = (?)", (session["user_id"],))
+        hash = cur.fetchone()[0]
+
+        if not check_password_hash(hash, current_password):
+            return render_template("settings.html", message="Invalid current password!")
+        
+        cur.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(new_password), session["user_id"]))
+        con.commit()
+
+        flash("You have successfully changed your password!")
+
+        return redirect("/settings")
+
+    return render_template("settings.html")
 
 
 if __name__ == "__main__":
