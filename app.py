@@ -1,20 +1,17 @@
 import os
 import requests
-from sqlalchemy import create_engine
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+from helpers import login_required, is_sub_dict, database
 
 # Create Flask application
 app = Flask(__name__)
 
 # Configure session
-app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_PERMANENT"] = False
 Session(app)
-
-# Configure sqlalchemy engine object to use sqlite database
-engine = create_engine("sqlite:///database.db")
 
 # Make sure API key is set
 API_KEY = os.environ.get("API_KEY")
@@ -22,24 +19,38 @@ API_KEY = os.environ.get("API_KEY")
 if not API_KEY:
     raise RuntimeError("API_KEY not set")
 
+
+# Ensure responses aren't cached
 @app.after_request
 def after_request(response):
-    """Ensure responses aren't cached"""
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
 
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("register.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return render_template("login.html")
+
+
 @app.route("/")
 def index():
-    return render_template("settings.html")
+    return render_template("index.html")
 
+
+# Determines whether a dict is a sub-dict of another dict
 def is_sub_dict(sub_dict, main_dict):
-    """Determines whether a dict is a sub-dict of another dict"""
     for key, value in sub_dict.items():
         if main_dict[key] != value:
             return False
     return True
+
 
 @app.route("/exercises", methods=["GET", "POST"])
 def exercises():
@@ -72,6 +83,17 @@ def exercises():
         return render_template("results.html", results=results)
 
     return render_template("exercises.html")
+
+
+@app.route("/schedules")
+def schedules():
+    return render_template("/schedules")
+
+
+@app.route("/settings", methods=["GET", "POST"])
+def settings():
+    return render_template("/settings")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
