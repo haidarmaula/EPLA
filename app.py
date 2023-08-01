@@ -78,7 +78,7 @@ def login():
         
         con, cur = database()
 
-        cur.execute("SELECT * FROM USERS WHERE username = ?", username)
+        cur.execute("SELECT * FROM users WHERE username = (?)", (username,))
         row = cur.fetchone()
 
         if not row:
