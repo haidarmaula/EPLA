@@ -46,8 +46,9 @@
             </nav>
         </div>
         {% if get_flashed_messages() %}
-            <header>
-
+            <header class="absolute top-20 w-full p-5 flex justify-center items-center bg-yellow-2 font-semibold">
+                <p>{{ get_flashed_messages() | join(" ") }}</p>
+                <button name="header-button" type="button" class="absolute right-5 px-2 rounded-md bg-black font-light text-white hover:bg-default-1 hover:scale-105 duration-300 transition-all">x</button>
             </header>
         {% endif %}
         <main class="flex justify-center my-16">
