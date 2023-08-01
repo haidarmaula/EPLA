@@ -50,6 +50,7 @@
                 <p>{{ get_flashed_messages() | join(" ") }}</p>
                 <button name="header-button" type="button" class="absolute right-5 px-2 rounded-md bg-black font-light text-white hover:bg-default-1 hover:scale-105 duration-300 transition-all">x</button>
             </header>
+            <script src="/static/js/closeHeader.js"></script>
         {% endif %}
         <main class="flex justify-center my-16">
             {% block main %}{% endblock %}
