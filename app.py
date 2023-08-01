@@ -31,6 +31,39 @@ def after_request(response):
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+
+        if not username or not password or not confirmation:
+            return render_template("register.html", message="Must provide Username, Password, and Confirmation!")
+        
+        if password != confirmation:
+            return render_template("register.html", message="Password and Confirmation must match!")
+        
+        con, cur = database()
+
+        cur.execute("SELECT username FROM users WHERE username = ?", username)
+        row = cur.fetchall()
+
+        if row:
+            return render_template("register.html", message="Username already exists!")
+        
+        cur.execute("INSERT INTO users(username, hash) VALUES(?, ?)", username, generate_password_hash(password))
+        con.commit()
+
+        cur.execute("SELECT id FROM users WHERE username = ?", username)
+        user_id = cur.fetchone()[0]
+        session["user_id"] = user_id
+
+        cur.close()
+        con.close()
+
+        flash("You are successfully registered!")
+
+        return redirect("/")
+    
     return render_template("register.html")
 
 
