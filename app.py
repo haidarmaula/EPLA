@@ -150,28 +150,43 @@ def schedules():
     return render_template("/schedules")
 
 
-@app.route("/settings", methods=["GET", "POST"])
+@app.route("/settings")
 @login_required
 def settings():
+    return render_template("settings.html")
+
+
+@app.route("/change-username", methods=["GET", "POST"])
+@login_required
+def change_username():
     if request.method == "POST":
-        if request.form.get("new-username"):
-            new_username = request.form.get("new-username")
+        new_username = request.form.get("new-username")
 
-            con, cur = database()
+        if not new_username:
+            return render_template("settings.html", message1="Must provide new username!") 
 
-            cur.execute("SELECT * FROM users WHERE username = (?)", (new_username,))
-            row = cur.fetchone()
+        con, cur = database()
 
-            if row:
-                return render_template("settings.html", message1="Username already exists!")
-            
-            cur.execute("UPDATE users SET username = (?) WHERE id = (?)", (new_username, session["user_id"]))
-            con.commit()
+        cur.execute("SELECT * FROM users WHERE username = (?)", (new_username,))
+        row = cur.fetchone()
 
-            flash("You have successfully changed your username!")
-
-            return redirect("/settings")
+        if row:
+            return render_template("settings.html", message1="Username already exists!")
         
+        cur.execute("UPDATE users SET username = (?) WHERE id = (?)", (new_username, session["user_id"]))
+        con.commit()
+        cur.close()
+        con.close()
+
+        flash("You have successfully changed your username!")
+    
+    return redirect("/settings")
+
+
+@app.route("/change-password", methods=["GET", "POST"])
+@login_required
+def change_password():
+    if request.method == "POST":
         current_password = request.form.get("current-password")
         new_password = request.form.get("new-password")
         confirmation = request.form.get("confirmation")
@@ -192,12 +207,12 @@ def settings():
         
         cur.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(new_password), session["user_id"]))
         con.commit()
+        cur.close()
+        con.close()
 
         flash("You have successfully changed your password!")
 
-        return redirect("/settings")
-
-    return render_template("settings.html")
+    return redirect("/settings")
 
 
 if __name__ == "__main__":
