@@ -215,5 +215,10 @@ def change_password():
     return redirect("/settings")
 
 
+@app.route("/tes")
+def tes():
+    return render_template("add-change-schedules.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
