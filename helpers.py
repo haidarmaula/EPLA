@@ -24,4 +24,5 @@ def is_sub_dict(sub_dict, main_dict):
 def database(db="database.db"):
     con = sqlite3.connect(db)
     cur = con.cursor()
+    cur.execute("PRAGMA foreign_keys = 1")
     return con, cur

@@ -144,10 +144,84 @@ def exercises():
     return render_template("exercises.html")
 
 
-@app.route("/schedules")
+@app.route("/schedules", methods=["GET", "POST"])
 @login_required
 def schedules():
-    return render_template("/schedules")
+    if request.method == "POST":
+        if request.form.get("remove-exercise"):
+            exercise = request.form.get("remove-exercise")
+            day = request.form.get("day")
+
+            con, cur = database()
+
+            cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+            exercise_id = cur.fetchone()[0]
+
+            cur.execute("SELECT * FROM schedules WHERE user_id = (?) AND exercise_id = (?)", (session["user_id"], exercise_id))
+            days = cur.fetchall()
+
+            if len(days) == 1:
+                cur.execute("DELETE FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+                con.commit()
+            else:
+                cur.execute("DELETE FROM schedules WHERE user_id = (?) AND exercise_id = (?) AND day = (?)", (session["user_id"], exercise_id, day))
+                con.commit()
+
+            cur.close()
+            con.close()
+
+        else:
+            day = request.form.get("day")
+            exercise = request.form.get("exercise")
+
+            con, cur = database()
+
+            cur.execute("SELECT * FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+            row = cur.fetchall()
+
+            if not row:
+                cur.execute("INSERT INTO exercises(user_id, exercise) VALUES(?, ?)", (session["user_id"], exercise))
+                con.commit()
+
+            cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+            exercise_id = cur.fetchone()[0]
+
+            cur.execute("INSERT INTO schedules VALUES(?, ?, ?)", (session["user_id"], exercise_id, day))
+            con.commit()
+
+            cur.close()
+            con.close()
+
+    exercises = {
+        "monday": [],
+        "tuesday": [],
+        "wednesday": [],
+        "thursday": [],
+        "friday": [],
+        "saturday": [],
+        "sunday": [],
+    }
+
+    con, cur = database()
+
+    for row in exercises:
+        cur.execute("SELECT exercise_id FROM schedules WHERE user_id = (?) AND day = (?)", (session["user_id"], row))
+        exercise_id = cur.fetchall()
+        exercise_id = [id[0] for id in exercise_id]
+
+        placeholders = ', '.join(['?' for _ in exercise_id])
+        sql_query = f"SELECT exercise FROM exercises WHERE user_id = (?) AND id IN ({placeholders})"
+
+        cur.execute(sql_query, (session["user_id"], *exercise_id))
+        results = cur.fetchall()
+        results = [item[0] for item in results]
+
+        exercises[row].extend(results)
+
+    cur.close()
+    con.close()
+
+    return render_template("add-change-schedules.html", exercises=exercises)
 
 
 @app.route("/settings")
