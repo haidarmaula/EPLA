@@ -291,7 +291,7 @@ def change_password():
 
 @app.route("/tes")
 def tes():
-    return render_template("add-change-schedules.html")
+    return render_template("track-my-workouts.html")
 
 
 if __name__ == "__main__":
