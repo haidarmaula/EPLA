@@ -35,10 +35,18 @@
             </a>
             <nav class="absolute w-full right-0">
                 {% if session["user_id"] %}
-                    <ul class="flex items-center justify-center">
-                        <li class="mx-5 text-white"><a href="/exercises" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Exercises</a></li>
-                        <li class="mx-5 text-white"><a href="/schedules" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Schedules</a></li>
-                        <li class="mx-5 text-white"><a href="/settings" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Settings</a></li>
+                    <ul class="relative flex items-center justify-center space-x-5">
+                        <li class="p-2 rounded hover:bg-yellow-1 hover:text-black text-white duration-300"><a href="/exercises">Exercises</a></li>
+                        <div x-data="{open: false}">
+                            <button @click="open = !open" class="p-2 rounded hover:bg-yellow-1 hover:text-black text-white duration-300">Schedules</button>
+                            <div x-show="open" @click.outside="open = false" class="flex w-full justify-center">
+                                <ul class="absolute w-fit p-2 rounded-md bg-white font-light text-center text-black">
+                                    <li class="p-2 rounded-md hover:bg-default-2 hover:text-white duration-300"><a href="/schedules">Add/Change Schedules</a></li>
+                                    <li class="p-2 rounded-md hover:bg-default-2 hover:text-white duration-300"><a href="/track-my-workouts">Track My Workouts</a></li>
+                                </ul> 
+                            </div>
+                        </div>
+                        <li class="p-2 rounded hover:bg-yellow-1 hover:text-black text-white duration-300"><a href="/settings">Settings</a></li>
                     </ul>
                 {% else %}
                     <ul class="flex items-center justify-end">
