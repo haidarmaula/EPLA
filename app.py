@@ -1,9 +1,10 @@
 import os
 import requests
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required, is_sub_dict, database
+from datetime import datetime
 
 # Create Flask application
 app = Flask(__name__)
@@ -222,6 +223,126 @@ def schedules():
     con.close()
 
     return render_template("add-change-schedules.html", exercises=exercises)
+
+
+@app.route("/track-my-workouts", methods=["GET", "POST"])
+@login_required
+def track_my_workouts():
+    day_names = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    month_names = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+
+    if request.method == "POST":
+        if request.form.get("remove-exercise"):
+            exercise = request.form.get("remove-exercise")
+            date = request.form.get("date")
+
+            print(date)
+
+            if date == "null":
+                date = datetime.now()
+                date = f"{date.year}-{date.month}-{date.day}"
+
+            con, cur = database()
+
+            cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+            exercise_id = cur.fetchone()[0]            
+
+            cur.execute("DELETE FROM progress WHERE user_id = (?) AND exercise_id = (?) AND date = (?)", (session["user_id"], exercise_id, date))
+            con.commit()
+
+            cur.close()
+            con.close()
+
+            response = {'status': 'success'}
+
+            return jsonify(response)
+
+        else:
+            exercise = request.form.get("exercise")
+            weight = request.form.get("weight")
+            reps = request.form.get("reps")
+            sets = request.form.get("sets")
+            date = request.form.get("date")
+
+            print(date)
+
+            if date == "null":
+                date = datetime.now()
+                date = f"{date.year}-{date.month}-{date.day}"
+
+            day = datetime.strptime(date, "%Y-%m-%d").date()
+            day = day_names[day.weekday()]
+
+            con, cur = database()
+
+            cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+            exercise_id = cur.fetchone()[0]
+
+            cur.execute("INSERT INTO progress VALUES(?, ?, ?, ?, ?, ?)", (session["user_id"], exercise_id, weight, reps, sets, date))
+            con.commit()
+
+            cur.execute("SELECT * FROM progress WHERE user_id = (?) AND exercise_id = (?) AND date = (?)", (session["user_id"], exercise_id, date))
+            result = cur.fetchone()
+            result = {exercise: list(result)}
+
+            cur.close()
+            con.close()
+
+            print(result)
+            
+            return jsonify(result)
+    
+    date = request.args.get("date")
+
+    print(date)
+
+    if not date:
+        date = datetime.now()
+        date = f"{date.year}-{date.month}-{date.day}"
+
+    day = datetime.strptime(date, "%Y-%m-%d").date()
+    day = day_names[day.weekday()]
+
+    con, cur = database()
+    
+    cur.execute("SELECT * FROM progress WHERE user_id = (?) AND date = (?)", (session["user_id"], date))
+    progress = cur.fetchall()
+
+    cur.execute("SELECT exercise_id FROM schedules WHERE user_id = (?) AND day = (?)", (session["user_id"], day))
+    exercise_id = cur.fetchall()
+    exercise_id = [id[0] for id in exercise_id]
+
+    placeholders = ', '.join(['?' for _ in exercise_id])
+    sql_query = f"SELECT exercise FROM exercises WHERE user_id = (?) AND id IN ({placeholders})"
+
+    cur.execute(sql_query, (session["user_id"], *exercise_id))
+    results = cur.fetchall()
+    results = [item[0] for item in results]
+
+    exercises = {exercise: [] for exercise in results}
+
+    for exercise in exercises:
+        cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+        exercise_id = cur.fetchone()[0]
+
+        for record in progress:
+            if exercise_id == record[1]:
+                exercises[exercise].extend(list(record))
+    
+    cur.close()
+    con.close()
+
+    print(exercises)
+
+    display_date = date
+    display_date = display_date.split("-")
+    month = month_names[int(display_date[1]) - 1]
+    display_date[1] = month.capitalize()
+    display_date = display_date[::-1]
+    display_date = ' '.join(display_date)
+    display_date = f"{day.capitalize()}, {display_date}"
+
+    return render_template("track-my-workouts.html", exercises=exercises, display_date=display_date)
 
 
 @app.route("/settings")
