@@ -285,6 +285,19 @@ def track_my_workouts():
             con.close()
             
             return jsonify(result)
+        
+    con, cur = database()
+
+    cur.execute("SELECT * FROM schedules WHERE user_id = (?)", (session["user_id"],))
+    schedules = cur.fetchall()
+
+    if not schedules:
+        message = "You have no workouts to track, make your schedule first!"
+
+        cur.close()
+        con.close()
+
+        return render_template("track-my-workouts.html", message=message)
     
     date = request.args.get("date")
 
@@ -294,8 +307,6 @@ def track_my_workouts():
 
     day = datetime.strptime(date, "%Y-%m-%d").date()
     day = day_names[day.weekday()]
-
-    con, cur = database()
     
     cur.execute("SELECT * FROM progress WHERE user_id = (?) AND date = (?)", (session["user_id"], date))
     progress = cur.fetchall()
