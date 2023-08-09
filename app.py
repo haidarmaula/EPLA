@@ -236,8 +236,6 @@ def track_my_workouts():
             exercise = request.form.get("remove-exercise")
             date = request.form.get("date")
 
-            print(date)
-
             if date == "null":
                 date = datetime.now()
                 date = f"{date.year}-{date.month}-{date.day}"
@@ -264,8 +262,6 @@ def track_my_workouts():
             sets = request.form.get("sets")
             date = request.form.get("date")
 
-            print(date)
-
             if date == "null":
                 date = datetime.now()
                 date = f"{date.year}-{date.month}-{date.day}"
@@ -287,14 +283,10 @@ def track_my_workouts():
 
             cur.close()
             con.close()
-
-            print(result)
             
             return jsonify(result)
     
     date = request.args.get("date")
-
-    print(date)
 
     if not date:
         date = datetime.now()
@@ -332,8 +324,6 @@ def track_my_workouts():
     cur.close()
     con.close()
 
-    print(exercises)
-
     display_date = date
     display_date = display_date.split("-")
     month = month_names[int(display_date[1]) - 1]
@@ -341,6 +331,9 @@ def track_my_workouts():
     display_date = display_date[::-1]
     display_date = ' '.join(display_date)
     display_date = f"{day.capitalize()}, {display_date}"
+
+    if date == f"{datetime.now().year}-{datetime.now().month}-{datetime.now().day}" and not exercises:
+        display_date = "Rest Day!"
 
     return render_template("track-my-workouts.html", exercises=exercises, display_date=display_date)
 

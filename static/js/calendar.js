@@ -62,8 +62,6 @@ let calendar = () => {
             let parameter = `${currentYear}-${currentMonth + 1}-${selectedDate}`;
             let url = `/track-my-workouts?date=${parameter}`;
 
-            console.log(parameter);
-
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
@@ -109,8 +107,6 @@ exercisesForm.forEach(form => {
         let formData = new FormData(form);
         let url = `/track-my-workouts?date=${selectedDate}`;
 
-        console.log(selectedDate);
-
         formData.append('date', selectedDate);
 
         let content = form.querySelector('[name="content"]');
@@ -124,9 +120,6 @@ exercisesForm.forEach(form => {
             .then(data => {
                 let exercise = Object.keys(data)[0]
                 
-                console.log(data)
-                console.log(exercise)
-
                 form.id = 'delete-exercise'
 
                 content.innerHTML = `<input type="hidden" name="exercise" value="${exercise}">

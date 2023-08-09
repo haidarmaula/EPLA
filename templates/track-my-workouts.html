@@ -5,59 +5,63 @@
 {% endblock %}
 
 {% block main %}
-    <div class="flex space-x-10">
-        <div class="relative flex flex-col w-fit h-fit p-5 space-y-5 items-center rounded-lg bg-default-3 text-white">
-            <div class="flex w-full justify-between items-center">
-                <svg name="prevNextIcon" id="prev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 p-1 z-10 rounded-full bg-yellow-1 text-black shadow-inner hover:bg-yellow-2 hover:scale-105 duration-300 transition-all cursor-pointer">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
-                <h1 id="current-calendar" class="absolute left-0 w-full font-bold text-xl text-center text-yellow-2">August 2023</h1>
-                <svg name="prevNextIcon" id="next" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 p-1 z-10 rounded-full bg-yellow-1 text-black shadow-inner hover:bg-yellow-2 hover:scale-105 duration-300 transition-all cursor-pointer">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>                            
+    <div class="flex flex-col items-center space-y-10">
+        <h1 class="font-bold text-center text-4xl text-yellow-2">{{ display_date }}</h1>
+        <div class="flex space-x-10">
+            <div class="relative flex flex-col w-fit h-fit p-5 space-y-5 items-center rounded-lg bg-default-3 text-white">
+                <div class="flex w-full justify-between items-center">
+                    <svg name="prevNextIcon" id="prev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 p-1 z-10 rounded-full bg-yellow-1 text-black shadow-inner hover:bg-yellow-2 hover:scale-105 duration-300 transition-all cursor-pointer">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                    <h1 id="current-calendar" class="absolute left-0 w-full font-bold text-xl text-center text-yellow-2">August 2023</h1>
+                    <svg name="prevNextIcon" id="next" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 p-1 z-10 rounded-full bg-yellow-1 text-black shadow-inner hover:bg-yellow-2 hover:scale-105 duration-300 transition-all cursor-pointer">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>                            
+                </div>
+                <div class="space-y-5">
+                    <ul class="grid grid-cols-7 gap-3 font-semibold text-center text-white">
+                        <li>Su</li>
+                        <li>Mo</li>
+                        <li>Tu</li>
+                        <li>We</li>
+                        <li>Th</li>
+                        <li>Fr</li>
+                        <li>Sa</li>
+                    </ul>
+                    <ul id="days" class="grid grid-cols-7 gap-3 font-light text-center"></ul>
+                </div>
             </div>
-            <div class="space-y-5">
-                <ul class="grid grid-cols-7 gap-3 font-semibold text-center text-white">
-                    <li>Su</li>
-                    <li>Mo</li>
-                    <li>Tu</li>
-                    <li>We</li>
-                    <li>Th</li>
-                    <li>Fr</li>
-                    <li>Sa</li>
-                </ul>
-                <ul id="days" class="grid grid-cols-7 gap-3 font-light text-center"></ul>
-            </div>
-        </div>
-        <div class="flex flex-col space-y-5">
-            <h1 class="font-bold text-center text-2xl text-yellow-2">{{ display_date }}</h1>
-            <div class="grid grid-cols-2 h-fit gap-10 ">
-                {% for exercise in exercises %}
-                    {% if exercises[exercise] %}
-                        <form name="exercise-form" id="delete-exercise" action="/track-my-workouts" method="post" class="flex flex-col h-fit items-center space-y-2">
-                            <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise }}</h1>
-                            <div name="content" class="flex w-full justify-between mx-1">
-                                <input type="hidden" name="exercise" value="{{ exercise }}">
-                                <p class="w-14 rounded bg-default-3 font-normal text-center text-white">{{ exercises[exercise][2] }}</p>
-                                <p class="w-14 rounded bg-default-3 font-normal text-center text-white">{{ exercises[exercise][3] }}</p>
-                                <p class="w-14 rounded bg-default-3 font-normal text-center text-white">{{ exercises[exercise][4] }}</p>
-                                <button type="submit" class="rounded px-2 bg-yellow-1 shadow-inner">Delete</button>
-                            </div>
-                        </form>
-                    {% else %}
-                        <form name="exercise-form" id="save-exercise" method="post" class="flex flex-col h-fit items-center space-y-2">
-                            <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise }}</h1>
-                            <div name="content" class="flex w-full justify-between mx-1">
-                                <input type="hidden" name="exercise" value="{{ exercise }}">
-                                <input type="number" name="weight" required step="2.5" min="2.5" placeholder="Weight" class="w-20 rounded bg-default-3 font-normal text-center text-white">
-                                <input type="number" name="reps" required min="1" placeholder="Reps" class="w-14 rounded bg-default-3 font-normal text-center text-white">
-                                <input type="number" name="sets" required min="1" placeholder="Sets" class="w-14 rounded bg-default-3 font-normal text-center text-white">
-                                <button type="submit" class="rounded px-2 bg-yellow-1 shadow-inner">Save</button>
-                            </div>
-                        </form>
-                    {% endif %}
-                {% endfor %}
-            </div>
+            {% if exercises %}
+                <div class="flex flex-col space-y-5">
+                    <div class="grid grid-cols-2 h-fit gap-10 ">
+                        {% for exercise in exercises %}
+                            {% if exercises[exercise] %}
+                                <form name="exercise-form" id="delete-exercise" action="/track-my-workouts" method="post" class="flex flex-col h-fit items-center space-y-2">
+                                    <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise }}</h1>
+                                    <div name="content" class="flex w-full justify-between mx-1">
+                                        <input type="hidden" name="exercise" value="{{ exercise }}">
+                                        <p class="w-14 rounded bg-default-3 font-normal text-center text-white">{{ exercises[exercise][2] }}</p>
+                                        <p class="w-14 rounded bg-default-3 font-normal text-center text-white">{{ exercises[exercise][3] }}</p>
+                                        <p class="w-14 rounded bg-default-3 font-normal text-center text-white">{{ exercises[exercise][4] }}</p>
+                                        <button type="submit" class="rounded px-2 bg-yellow-1 shadow-inner">Delete</button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form name="exercise-form" id="save-exercise" method="post" class="flex flex-col h-fit items-center space-y-2">
+                                    <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise }}</h1>
+                                    <div name="content" class="flex w-full justify-between mx-1">
+                                        <input type="hidden" name="exercise" value="{{ exercise }}">
+                                        <input type="number" name="weight" required step="2.5" min="2.5" placeholder="Weight" class="w-20 rounded bg-default-3 font-normal text-center text-white">
+                                        <input type="number" name="reps" required min="1" placeholder="Reps" class="w-14 rounded bg-default-3 font-normal text-center text-white">
+                                        <input type="number" name="sets" required min="1" placeholder="Sets" class="w-14 rounded bg-default-3 font-normal text-center text-white">
+                                        <button type="submit" class="rounded px-2 bg-yellow-1 shadow-inner">Save</button>
+                                    </div>
+                                </form>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
     <script src="/static/js/calendar.js" defer></script>
