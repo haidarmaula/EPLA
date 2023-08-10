@@ -108,7 +108,44 @@ def logout():
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    con, cur = database()
+
+    cur.execute("SELECT exercise FROM exercises WHERE user_id = (?)", (session["user_id"],))
+    exercises = cur.fetchall()
+    exercises = [exercise[0] for exercise in exercises]
+
+    cur.close()
+    con.close()
+
+    return render_template("index.html", exercises=exercises)
+
+
+@app.route("/fetch-progress")
+@login_required
+def fetch_progress():
+    exercise = request.args.get("exercise")
+
+    con, cur = database()
+
+    cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
+    exercise_id = cur.fetchone()[0]
+
+    cur.execute("SELECT * FROM progress WHERE user_id = (?) AND exercise_id = (?)", (session["user_id"], exercise_id))
+    progress = cur.fetchall()
+    data = {}
+
+    for record in progress:
+        date = record[5]
+        date = datetime.strptime(date, "%Y-%m-%d")
+        date = date.strftime("%y/%m/%d")
+        data[date] = record[2] * record[3] * record[4]
+
+    cur.close()
+    con.close()
+    
+    print(data)
+
+    return jsonify(data)
 
 
 @app.route("/exercises", methods=["GET", "POST"])

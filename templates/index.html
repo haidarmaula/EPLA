@@ -5,5 +5,95 @@
 {% endblock %}
 
 {% block main %}
-    <p class="font-bold text-center text-5xl text-yellow-2">You have no progress to track,<br>create your schedule and track your workouts!</p>
+    <div class="flex flex-col w-full h-full items-center space-y-5">
+        <h1 id="exercise-title" class="font-bold text-center text-4xl text-yellow-2"></h1>
+        <div class="w-1/2">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="flex flex-col items-center">
+            <button class="rounded p-2 bg-yellow-1 shadow-inner" onclick="toggleOptions()">Select Exercises</button>
+            <div id="options" class="hidden">
+                <ul class="h-24 overflow-scroll overflow-x-hidden p-2 rounded-md bg-white font-light text-center text-black">
+                    {% for exercise in exercises %}
+                        <li name="exercise" class="p-2 rounded-md hover:bg-default-2 hover:text-white duration-300 cursor-pointer">{{ exercise }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let myChart = null;
+
+        function createChart (labels, itemData) {
+            const ctx = document.getElementById('myChart');
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'Volume',
+                    data: itemData,
+                    borderWidth: 2,
+                    borderColor: '#F7C873',
+                    fill: true
+                }]
+            }
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(
+                ctx,
+                config
+            );
+        }
+
+        let exercises = document.querySelectorAll('[name="exercise"]')
+
+        function fetchData(exercise = exercises[0].innerText) {
+            fetch(`/fetch-progress?exercise=${exercise}`)
+                .then(response => response.json())
+                .then(data => {
+                    let exerciseTitle = document.getElementById('exercise-title');
+                    exerciseTitle.innerText = exercise;
+
+                    let date = Object.keys(data);
+                    let volume = Object.values(data);
+
+                    console.log(data)
+                    console.log(date)
+
+                    createChart(date, volume);
+                });
+        }
+
+        fetchData();
+
+        exercises.forEach(exercise => {
+            exercise.addEventListener('click', event => {
+                toggleOptions();
+                fetchData(exercise.innerText);
+            });
+        });
+
+        function toggleOptions() {
+            let options = document.getElementById('options');
+
+            options.classList.toggle('hidden');
+        }   
+    </script>
 {% endblock %}
