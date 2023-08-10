@@ -110,6 +110,17 @@ def logout():
 def index():
     con, cur = database()
 
+    cur.execute("SELECT * FROM progress WHERE user_id = (?)", (session["user_id"],))
+    progress = cur.fetchall()
+
+    if not progress:
+        message = "You have no progress to track, make your schedule and track your workouts!"
+
+        cur.close()
+        con.close()
+
+        return render_template("index.html", message=message)
+
     cur.execute("SELECT exercise FROM exercises WHERE user_id = (?)", (session["user_id"],))
     exercises = cur.fetchall()
     exercises = [exercise[0] for exercise in exercises]
