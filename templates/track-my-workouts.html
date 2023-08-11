@@ -40,7 +40,7 @@
                             {% for exercise in exercises %}
                                 {% if exercises[exercise] %}
                                     <form name="exercise-form" id="delete-exercise" action="/track-my-workouts" method="post" class="flex flex-col h-fit items-center space-y-2">
-                                        <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise }}</h1>
+                                        <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise|title }}</h1>
                                         <div name="content" class="flex w-full justify-between mx-1">
                                             <input type="hidden" name="exercise" value="{{ exercise }}">
                                             <p class="w-14 rounded bg-default-3 font-normal text-center text-white">{{ exercises[exercise][2] }}</p>
@@ -51,7 +51,7 @@
                                     </form>
                                 {% else %}
                                     <form name="exercise-form" id="save-exercise" method="post" class="flex flex-col h-fit items-center space-y-2">
-                                        <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise }}</h1>
+                                        <h1 class="w-full px-2 rounded bg-yellow-2 font-semibold text-center text-lg text-black">{{ exercise|title }}</h1>
                                         <div name="content" class="flex w-full justify-between mx-1">
                                             <input type="hidden" name="exercise" value="{{ exercise }}">
                                             <input type="number" name="weight" required step="2.5" min="2.5" placeholder="Weight" class="w-20 rounded bg-default-3 font-normal text-center text-white">
