@@ -7,18 +7,18 @@
 {% block main %}
     <div class="flex flex-col items-center space-y-10">
         <div class="w-fit pl-2 py-2 bg-default-2 rounded-md">
-            <form action="/exercises" method="post" class="relative mr-10 flex justify-center items-center">
+            <form action="/exercises" method="post" class="relative flex mr-10 justify-center items-center">
                 <input type="text" name="exercise-name" id="exercise-name" placeholder="Exercise Name" class="pr-2 outline-none bg-transparent caret-yellow-2 placeholder-white font-light text-white">
-                <button class="absolute -right-10 p-2 rounded-e-md bg-yellow-1 shadow-inner hover:bg-yellow-2 duration-300 transition-all">
+                <button class="absolute -right-10 p-2 rounded-e-md bg-yellow-1 shadow-inner hover:bg-yellow-2 duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>              
                 </button>
             </form>
         </div>
-        <form action="/exercises" method="post" class="flex items-center space-x-1">
-            <div class="relative flex space-x-[124px]">
-                <select name="type" id="type" class="bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white">
+        <form action="/exercises" method="post" class="flex p-2 rounded-md bg-default-3 shadow-inner items-center space-x-1">
+            <div class="relative flex space-x-36">
+                <select name="type" id="type" class="p-2 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white">
                         <option selected disabled class="text-yellow-2">Type</option>
                         <option value="cardio" class="font-light">Cardio</option>
                         <option value="olympic_weightlifting">Olympic Weightlifting</option>
@@ -28,7 +28,7 @@
                         <option value="stretching">Stretching</option>
                         <option value="strongman">Strongman</option>
                 </select>
-                <select name="muscle" id="muscle" class="absolute left-[70px] py-1 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white" 
+                <select name="muscle" id="muscle" class="absolute left-[68px] p-2 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white" 
                 onfocus='this.size=9;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                     <option selected disabled class="text-yellow-2">Muscle</option>
                     <option value="abdominals">Abdominals</option>
@@ -47,14 +47,14 @@
                     <option value="traps">Traps</option>
                     <option value="triceps">Triceps</option>
                 </select>
-                <select name="difficulty" id="difficulty" class="py-1 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white">
+                <select name="difficulty" id="difficulty" class="p-2 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white">
                     <option selected disabled class="text-yellow-2">Difficulty</option>
                     <option value="beginner">Beginner</option>
                     <option value="intermediate">Intermediate</option>
                     <option value="expert">Expert</option>
                 </select>
             </div>
-            <button class="px-5 py-1 rounded-md bg-yellow-1 shadow-inner hover:bg-yellow-2 hover:scale-105 duration-300 transition-all">
+            <button class="px-5 py-2 rounded-md bg-yellow-1 shadow-inner hover:bg-yellow-2 hover:scale-105 duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>  
