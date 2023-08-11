@@ -267,6 +267,8 @@ def schedules():
 
         exercises[row].extend(results)
 
+    exercises = {day.capitalize(): value for day, value in exercises.items()}
+
     cur.close()
     con.close()
 
