@@ -404,68 +404,62 @@ def settings():
     return render_template("settings.html")
 
 
-@app.route("/change-username", methods=["GET", "POST"])
+@app.route("/change-username", methods=["POST"])
 @login_required
 def change_username():
-    if request.method == "POST":
-        new_username = request.form.get("new-username")
+    new_username = request.form.get("new-username")
 
-        if not new_username:
-            return render_template("settings.html", message1="Must provide new username!") 
+    if not new_username:
+        return jsonify({"message": "Must provide new username!"})
 
-        con, cur = database()
+    con, cur = database()
 
-        cur.execute("SELECT * FROM users WHERE username = (?)", (new_username,))
-        row = cur.fetchone()
+    cur.execute("SELECT * FROM users WHERE username = (?)", (new_username,))
+    row = cur.fetchone()
 
-        if row:
-            return render_template("settings.html", message1="Username already exists!")
-        
-        cur.execute("UPDATE users SET username = (?) WHERE id = (?)", (new_username, session["user_id"]))
-        con.commit()
-        cur.close()
-        con.close()
-
-        flash("You have successfully changed your username!")
+    if row:
+        return jsonify({"message": "Username already exists!"})
     
-    return redirect("/settings")
+    cur.execute("UPDATE users SET username = (?) WHERE id = (?)", (new_username, session["user_id"]))
+    con.commit()
+    cur.close()
+    con.close()
+
+    flash("You have successfully changed your username!")
+    
+    return jsonify({"response": "success"}), 200
 
 
-@app.route("/change-password", methods=["GET", "POST"])
+
+@app.route("/change-password", methods=["POST"])
 @login_required
 def change_password():
-    if request.method == "POST":
-        current_password = request.form.get("current-password")
-        new_password = request.form.get("new-password")
-        confirmation = request.form.get("confirmation")
+    current_password = request.form.get("current-password")
+    new_password = request.form.get("new-password")
+    confirmation = request.form.get("confirmation")
 
-        if not current_password or not new_password or not confirmation:
-            return render_template("settings.html", message2="Must provide current password, new password, and confirmation!")
-        
-        if new_password != confirmation:
-            return render_template("settings.html", message2="New password and confirmation must match!")  
+    if not current_password or not new_password or not confirmation:
+        return jsonify({"message": "Must provide current password, new password, and confirmation!"})
+    
+    if new_password != confirmation:
+        return jsonify({"message": "New password and confirmation must match!"})
 
-        con, cur = database()
+    con, cur = database()
 
-        cur.execute("SELECT hash FROM users WHERE id = (?)", (session["user_id"],))
-        hash = cur.fetchone()[0]
+    cur.execute("SELECT hash FROM users WHERE id = (?)", (session["user_id"],))
+    hash = cur.fetchone()[0]
 
-        if not check_password_hash(hash, current_password):
-            return render_template("settings.html", message2="Invalid current password!")
-        
-        cur.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(new_password), session["user_id"]))
-        con.commit()
-        cur.close()
-        con.close()
+    if not check_password_hash(hash, current_password):
+        return jsonify({"message": "Invalid current password!"})
+    
+    cur.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(new_password), session["user_id"]))
+    con.commit()
+    cur.close()
+    con.close()
 
-        flash("You have successfully changed your password!")
+    flash("You have successfully changed your password!")
 
-    return redirect("/settings")
-
-
-@app.route("/tes")
-def tes():
-    return render_template("track-my-workouts.html")
+    return jsonify({"response": "success"}), 200
 
 
 if __name__ == "__main__":
