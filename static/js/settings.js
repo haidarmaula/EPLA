@@ -1,5 +1,28 @@
 const settingForms = document.getElementsByName('setting-form');
 
+function createHeader(message) {
+    let body = document.querySelector('body');
+    let header = document.createElement('div');
+    header.classList.add('absolute', 'top-20', 'w-full', 'p-5', 'flex', 'justify-center', 'items-center', 'bg-yellow-2', 'font-semibold');
+
+    header.innerHTML = `
+        <p>${message}</p>
+        <button name="header-button" type="button" class="absolute right-5 p-1 rounded-md bg-black hover:bg-default-1 hover:scale-105 duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>                      
+        </button>
+    `;
+
+    body.insertBefore(header, body.firstChild);
+
+    let headerButton = document.querySelector('[name="header-button"]');
+
+    headerButton.addEventListener('click', function() {
+        header.style.display = 'none';
+    });
+}
+
 settingForms.forEach(form => {
     form.addEventListener('submit', event => {
         event.preventDefault();
@@ -12,9 +35,11 @@ settingForms.forEach(form => {
         if (form.id === 'change-username-form') {
             url = '/change-username';
             messageEl = document.getElementById('message1');
+            headerMessage = 'You have successfully changed your username!';
         } else {
             url = '/change-password';
             messageEl = document.getElementById('message2');
+            headerMessage = 'You have successfully changed your password!';
         }
 
         fetch(url, {
@@ -24,7 +49,7 @@ settingForms.forEach(form => {
         .then(response => response.json())
         .then(data => {
             if (data.response === 'success') {
-                window.location.href = '/settings';
+                createHeader(headerMessage);
             } else {
                 messageEl.innerText = `${data.message}`;
             }
