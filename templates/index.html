@@ -9,7 +9,7 @@
         <h1 class="mx-10 font-bold text-center text-5xl text-yellow-2">{{ message }}</h1>
     {% else %}
         <div class="flex flex-col w-full h-full items-center space-y-5">
-            <h1 id="exercise-title" class="font-bold text-center text-4xl text-yellow-2"></h1>
+            <h1 id="exercise-title" class="capitalize font-bold text-center text-4xl text-yellow-2"></h1>
             <div class="w-1/2">
                 <canvas id="myChart"></canvas>
             </div>
@@ -18,7 +18,7 @@
                 <div id="options" class="hidden">
                     <ul class="h-24 overflow-scroll overflow-x-hidden p-2 rounded-md bg-white font-light text-center text-black">
                         {% for exercise in exercises %}
-                            <li name="exercise" class="p-2 rounded-md hover:bg-default-2 hover:text-white duration-300 cursor-pointer">{{ exercise }}</li>
+                            <li name="exercise" id="{{ exercise }}" class="p-2 rounded-md hover:bg-default-2 capitalize hover:text-white duration-300 cursor-pointer">{{ exercise }}</li>
                         {% endfor %}
                     </ul>
                 </div>

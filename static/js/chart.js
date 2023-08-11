@@ -38,7 +38,7 @@ function createChart (labels, itemData) {
 
 let exercises = document.querySelectorAll('[name="exercise"]')
 
-function fetchData(exercise = exercises[0].innerText) {
+function fetchData(exercise = exercises[0].id) {
     fetch(`/fetch-progress?exercise=${exercise}`)
         .then(response => response.json())
         .then(data => {
@@ -47,9 +47,6 @@ function fetchData(exercise = exercises[0].innerText) {
 
             let date = Object.keys(data);
             let volume = Object.values(data);
-
-            console.log(data)
-            console.log(date)
 
             createChart(date, volume);
         });
@@ -60,7 +57,7 @@ fetchData();
 exercises.forEach(exercise => {
     exercise.addEventListener('click', event => {
         toggleOptions();
-        fetchData(exercise.innerText);
+        fetchData(exercise.id);
     });
 });
 
