@@ -9,7 +9,7 @@
     <div class="w-fit h-fit rounded-xl bg-default-1 bg-opacity-70 shadow-2xl">
         <div class="flex flex-col h-full p-5 items-center justify-between">
             <h1 class="p-5 font-bold text-2xl text-yellow-2">Register</h1>
-            <form action="/register" method="post" class="basis-7/12 flex flex-col justify-center items-center space-y-5">
+            <form id="register-form" method="post" class="basis-7/12 flex flex-col justify-center items-center space-y-5">
                 <div class="flex">
                     <input type="text" name="username" id="username" required placeholder="Username" class="border-b outline-none bg-transparent caret-yellow-2 placeholder-white font-light text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FAEBCD" class="w-6 h-6 mt-px border-b">
@@ -30,10 +30,11 @@
                 </div>
                 <button type="submit" class="w-full py-1 rounded-md bg-black font-medium text-sm text-white hover:bg-default-1 hover:scale-105 duration-300">Register</button>
             </form>
-            <div class="flex flex-col p-5 gap-2 text-center">
-                <p class="font-light text-xs text-white">{{ message }}</p>
+            <div class="flex flex-col p-5 gap-2 items-center text-center">
+                <p id="message" class="w-44 font-light text-xs text-white"></p>
                 <p class="font-light text-xs text-white">Already have an account? <a href="/login" class="font-medium">Login</a></p>
             </div>
         </div>
     </div>
+    <script src="/static/js/registerAuth.js"></script>
 {% endblock %}
