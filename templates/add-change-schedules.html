@@ -7,18 +7,18 @@
 {% block main %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-20">
         {% for day in exercises %}
-            <div class="{% if day == 'Sunday' %} col-start-2 {% endif %} space-y-1">
-                <h1 class="p-2 rounded bg-yellow-2 font-semibold text-center text-xl text-black">{{ day }}</h1>
+            <div class="{% if day == 'sunday' %} col-start-2 {% endif %} space-y-1">
+                <h1 class="p-2 rounded bg-yellow-2 font-semibold text-center text-xl text-black">{{ day|title }}</h1>
                 {% for exercise in exercises[day] %}
                     <form action="/schedules" method="post" class="flex flex-nowrap">
                         <input type="hidden" name="remove-exercise" value="{{ exercise }}">
-                        <input type="hidden" name="day" value="monday">
-                        <p class="w-full mr-1 px-2 rounded bg-default-3 font-light text-center text-white">{{ exercise }}</p>
+                        <input type="hidden" name="day" value="{{ day }}">
+                        <p class="w-full mr-1 px-2 rounded bg-default-3 font-light text-center text-white">{{ exercise|title }}</p>
                         <button type="submit" class="rounded px-2 bg-yellow-1 text-xl">-</button>      
                     </form>
                 {% endfor %}
                 <form action="/schedules" method="post">
-                    <input type="hidden" name="day" value="monday">
+                    <input type="hidden" name="day" value="{{ day }}">
                     <div class="flex gap-1">
                         <input type="text" name="exercise" placeholder="Exercise Name" required class="w-full border-b outline-none bg-transparent caret-yellow-2 placeholder-white font-light text-white">
                         <button type="submit" class="rounded px-2 bg-yellow-1">+</button>
