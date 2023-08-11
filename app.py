@@ -67,36 +67,37 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login")
 def login():
-    session.clear()
-
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        if not username or not password:
-            return render_template("login.html", message="Must provide Username and Password!")
-        
-        con, cur = database()
-
-        cur.execute("SELECT * FROM users WHERE username = (?)", (username,))
-        row = cur.fetchone()
-
-        if not row:
-            return render_template("login.html", message="Invalid Username!")
-        
-        if not check_password_hash(row[2], password):
-            return render_template("login.html", message="Invalid Password!")
-        
-        session["user_id"] = row[0]
-
-        cur.close()
-        con.close()
-
-        return redirect("/")
-
     return render_template("login.html")
+
+
+@app.route("/login-auth", methods=["POST"])
+def login_auth():
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if not username or not password:
+        return jsonify({"message": "Must provide username and password!"})
+    
+    con, cur = database()
+
+    cur.execute("SELECT * FROM users WHERE username = (?)", (username,))
+    row = cur.fetchone()
+
+    if not row:
+        return jsonify({"message": "Invalid username!"})
+    
+    if not check_password_hash(row[2], password):
+        return jsonify({"message": "Invalid password!"})
+    
+    session.clear()
+    session["user_id"] = row[0]
+
+    cur.close()
+    con.close()
+
+    return jsonify({"response": "success"}), 200
 
 
 @app.route("/logout")
@@ -153,8 +154,6 @@ def fetch_progress():
 
     cur.close()
     con.close()
-    
-    print(data)
 
     return jsonify(data)
 
