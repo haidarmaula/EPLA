@@ -59,7 +59,11 @@
         {% if get_flashed_messages() %}
             <header class="absolute top-20 w-full p-5 flex justify-center items-center bg-yellow-2 font-semibold">
                 <p>{{ get_flashed_messages() | join(" ") }}</p>
-                <button name="header-button" type="button" class="absolute right-5 px-2 rounded-md bg-black font-light text-white hover:bg-default-1 hover:scale-105 duration-300 transition-all">x</button>
+                <button name="header-button" type="button" class="absolute right-5 p-1 rounded-md bg-black hover:bg-default-1 hover:scale-105 duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>                      
+                </button>
             </header>
             <script src="/static/js/closeHeader.js"></script>
         {% endif %}
