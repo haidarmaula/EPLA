@@ -10,7 +10,7 @@
             <div class="{% if day == 'sunday' %} col-start-2 {% endif %} space-y-1">
                 <h1 class="p-2 rounded bg-yellow-2 font-semibold text-center text-xl text-black">{{ day|title }}</h1>
                 {% for exercise in exercises[day] %}
-                    <form action="/schedules" method="post" class="flex flex-nowrap">
+                    <form action="/schedules" method="post" class="flex">
                         <input type="hidden" name="remove-exercise" value="{{ exercise }}">
                         <input type="hidden" name="day" value="{{ day }}">
                         <p class="w-full mr-1 px-2 rounded bg-default-3 font-light text-center text-white">{{ exercise|title }}</p>
