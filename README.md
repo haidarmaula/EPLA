@@ -1,4 +1,4 @@
-![EPLA](https://github.com/haidarmaula/cs50-final-project/assets/72655447/4e39dd8e-1ab7-47d4-b952-97534fcc3d3c)
+![EPLA](https://github.com/haidarmaula/EPLA/assets/72655447/548efb70-22f4-49a1-88ee-21ec3b3675d6)
 
 
 # About
@@ -30,30 +30,25 @@ $ python3 app.py
 # Features
 
 ## Login
-![login](https://github.com/haidarmaula/cs50-final-project/assets/72655447/0da527c9-a5a4-439b-9702-50260073a030)
+![login](https://github.com/haidarmaula/EPLA/assets/72655447/2bc427d2-bde0-4436-add6-0132b3219e04)
 
 ## Register
-![register](https://github.com/haidarmaula/cs50-final-project/assets/72655447/79b0f95b-7510-4fd5-a54b-24d6c10b071e)
+![register](https://github.com/haidarmaula/EPLA/assets/72655447/361380d2-70e2-4cf4-a5e2-825fe20fca6b)
 
 ## Find exercises by name or category
-![exercises](https://github.com/haidarmaula/cs50-final-project/assets/72655447/425fb8b7-d001-4f9c-99fd-a9409a5ec3bf)
-![exercises1](https://github.com/haidarmaula/cs50-final-project/assets/72655447/43420115-d457-411d-b03b-534e3efcc855)
-![results](https://github.com/haidarmaula/cs50-final-project/assets/72655447/52a15520-a9ad-48fd-b2f0-b9352ba09b47)
+![exercises](https://github.com/haidarmaula/EPLA/assets/72655447/2f3df281-230b-49a2-b52c-5f736c74cf02)
+![exercises1](https://github.com/haidarmaula/EPLA/assets/72655447/ed8024b1-4ce6-4c6f-b7ab-6aa9b63af9f7)
+![results](https://github.com/haidarmaula/EPLA/assets/72655447/08ed6cb7-29fc-4f1c-87ad-2ca58e0efa03)
 
 ## Create your workouts schedule
-![schedules](https://github.com/haidarmaula/cs50-final-project/assets/72655447/4f089df0-c9a8-4f1b-aa24-8e7f8a9f84a4)
+![schedules](https://github.com/haidarmaula/EPLA/assets/72655447/c39123c8-f098-4cd4-b962-7c7d4fad4b86)
 
 ## Record your workouts
-![track-my-workouts](https://github.com/haidarmaula/cs50-final-project/assets/72655447/219f9889-2c5d-44ba-842b-ac6cc9262e45)
+![track-my-workouts](https://github.com/haidarmaula/EPLA/assets/72655447/b3fe0144-1a85-47a3-97c8-31bac2a1604b)
 
 ## Keep track of your progress
-![progress1](https://github.com/haidarmaula/cs50-final-project/assets/72655447/f377aa8c-0ba2-4f1d-8e81-eeceac39e81b)
-![progress](https://github.com/haidarmaula/cs50-final-project/assets/72655447/c11c6eff-24df-4198-bd3d-042aca0b677e)
+![progress1](https://github.com/haidarmaula/EPLA/assets/72655447/14147b66-020b-428a-bf2b-47d3b01c4f2c)
+![progress](https://github.com/haidarmaula/EPLA/assets/72655447/cf6c3254-897f-47d1-bfed-2d4df5a8aa03)
 
 ## Change your profile
-![settings](https://github.com/haidarmaula/cs50-final-project/assets/72655447/bdbfef69-aeeb-40f2-a376-e84990862eeb)
-
-
-
-
-
+![settings](https://github.com/haidarmaula/EPLA/assets/72655447/046f02bd-f39b-48ed-958e-0a4007b60858)
