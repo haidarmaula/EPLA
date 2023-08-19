@@ -65,4 +65,12 @@ function toggleOptions() {
     let options = document.getElementById('options');
 
     options.classList.toggle('hidden');
-}   
+}
+
+document.body.addEventListener('click', event => {
+    let options = document.getElementById('options');
+
+    if (!options.contains(event.target) && event.target.tagName !== 'BUTTON') {
+        options.classList.add('hidden');
+    }
+});
