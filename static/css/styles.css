@@ -4,6 +4,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
-option {
-    font-weight: 300;
+details summary svg {
+    transition: transform 0.3s ease-in-out;
+}
+
+details[open] summary svg {
+    transform: rotate(180deg);
 }

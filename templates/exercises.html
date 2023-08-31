@@ -6,59 +6,156 @@
 
 {% block main %}
     <div class="flex flex-col items-center space-y-10">
-        <div class="w-fit pl-2 py-2 bg-default-2 rounded-md">
-            <form action="/exercises" method="post" class="relative flex mr-10 justify-center items-center">
-                <input type="text" name="exercise-name" id="exercise-name" placeholder="Exercise Name" class="pr-2 outline-none bg-transparent caret-yellow-2 placeholder-white font-light text-white">
-                <button class="absolute -right-10 p-2 rounded-e-md bg-yellow-1 shadow-inner hover:bg-yellow-2 duration-300">
+        <div class="py-2 pl-2 rounded-md w-fit bg-default-2">
+            <form action="/exercises" method="post" class="relative flex items-center justify-center mr-10">
+                <input type="text" name="exercise-name" id="exercise-name" placeholder="Exercise Name" class="pr-2 font-light text-white placeholder-white bg-transparent outline-none caret-yellow-2">
+                <button class="absolute p-2 duration-300 shadow-inner -right-10 rounded-e-md bg-yellow-1 hover:bg-yellow-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>              
                 </button>
             </form>
         </div>
-        <form action="/exercises" method="post" class="flex p-2 rounded-md bg-default-3 shadow-inner items-center space-x-1">
-            <div class="relative flex space-x-36">
-                <select name="type" id="type" class="p-2 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white">
-                        <option selected disabled class="text-yellow-2">Type</option>
-                        <option value="cardio" class="font-light">Cardio</option>
-                        <option value="olympic_weightlifting">Olympic Weightlifting</option>
-                        <option value="plyometrics">Plyometrics</option>
-                        <option value="powerlifting">Powerlifting</option>
-                        <option value="strength">Strength</option>
-                        <option value="stretching">Stretching</option>
-                        <option value="strongman">Strongman</option>
-                </select>
-                <select name="muscle" id="muscle" class="absolute left-[68px] p-2 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white" 
-                onfocus='this.size=9;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                    <option selected disabled class="text-yellow-2">Muscle</option>
-                    <option value="abdominals">Abdominals</option>
-                    <option value="abductors">Abductors</option>
-                    <option value="adductors">Adductors</option>
-                    <option value="biceps">Biceps</option>
-                    <option value="calves">Calves</option>
-                    <option value="chest">Chest</option>
-                    <option value="forearms">Forearms</option>
-                    <option value="glutes">Glutes</option>
-                    <option value="hamstrings">Hamstrings</option>
-                    <option value="lats">Lats</option>
-                    <option value="lower_back">Lower Back</option>
-                    <option value="neck">Neck</option>
-                    <option value="quadriceps">Quadriceps</option>
-                    <option value="traps">Traps</option>
-                    <option value="triceps">Triceps</option>
-                </select>
-                <select name="difficulty" id="difficulty" class="p-2 bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white">
-                    <option selected disabled class="text-yellow-2">Difficulty</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="expert">Expert</option>
-                </select>
+        <form action="/exercises" method="post" class="relative">
+            <div class="flex items-center gap-2 p-2 rounded-md shadow-inner bg-default-3">
+                <details class="flex flex-col items-center gap-1">
+                    <summary name="type" id="type" class="flex w-[219px] p-2 justify-between items-center bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white cursor-pointer">
+                        <p>Type</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>                          
+                    </summary>
+                    <ul name="options" id="type-options" class="absolute -bottom-10 translate-y-24 whitespace-nowrap p-2 h-[135px] overflow-scroll overflow-x-hidden rounded-md bg-white font-light text-center text-black">
+                        <li class="flex">
+                            <input type="radio" name="type" id="cardio" value="cardio" class="hidden">
+                            <label for="cardio" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Cardio</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="type" id="olympic_weightlifting" value="olympic_weightlifting" class="hidden">
+                            <label for="olympic_weightlifting" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Olympic Weightlifting</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="type" id="plyometrics" value="plyometrics" class="hidden">
+                            <label for="plyometrics" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Plyometrics</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="type" id="powerlifting" value="powerlifting" class="hidden">
+                            <label for="powerlifting" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Powerlifting</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="type" id="strength" value="strength" class="hidden">
+                            <label for="strength" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Strength</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="type" id="stretching" value="stretching" class="hidden">
+                            <label for="stretching" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Stretching</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="type" id="strongman" value="strongman" class="hidden">
+                            <label for="strongman" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Strongman</label>
+                        </li>
+                    </ul>
+                </details>
+                <details class="flex flex-col items-center gap-1">
+                    <summary name="muscle" id="muscle" class="flex items-center justify-between p-2 font-light text-white placeholder-white rounded-md outline-none cursor-pointer w-36 bg-default-2 caret-yellow-2">
+                        <p>Muscle</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>                          
+                    </summary>
+                    <ul name="options" id="muscle-options" class="absolute -bottom-10 translate-y-24 whitespace-nowrap p-2 h-[135px] overflow-scroll overflow-x-hidden rounded-md bg-white font-light text-center text-black">
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="abdominals" value="abdominals" class="hidden">
+                            <label for="abdominals" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Abdominals</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="abductors" value="abductors" class="hidden">
+                            <label for="abductors" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Abductors</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="adductors" value="adductors" class="hidden">
+                            <label for="adductors" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Adductors</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="biceps" value="biceps" class="hidden">
+                            <label for="biceps" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Biceps</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="calves" value="calves" class="hidden">
+                            <label for="calves" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Calves</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="chest" value="chest" class="hidden">
+                            <label for="chest" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Chest</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="forearms" value="forearms" class="hidden">
+                            <label for="forearms" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Forearms</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="glutes" value="glutes" class="hidden">
+                            <label for="glutes" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Glutes</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="hamstrings" value="hamstrings" class="hidden">
+                            <label for="hamstrings" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Hamstrings</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="lats" value="lats" class="hidden">
+                            <label for="lats" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Lats</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="lower_back" value="lower_back" class="hidden">
+                            <label for="lower_back" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Lower Back</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="neck" value="neck" class="hidden">
+                            <label for="neck" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Neck</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="quadriceps" value="quadriceps" class="hidden">
+                            <label for="quadriceps" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Quadriceps</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="traps" value="traps" class="hidden">
+                            <label for="traps" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Traps</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="muscle" id="triceps" value="triceps" class="hidden">
+                            <label for="triceps" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Triceps</label>
+                        </li>
+                    </ul>
+                </details>
+                <details class="flex flex-col items-center gap-1">
+                    <summary name="difficulty" id="difficulty" class="flex w-[135px] p-2 justify-between items-center bg-default-2 rounded-md outline-none caret-yellow-2 placeholder-white font-light text-white cursor-pointer">
+                        <p>Difficulty</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>                          
+                    </summary>
+                    <ul name="options" id="difficulty-options" class="absolute p-2 font-light text-center text-black translate-y-24 bg-white rounded-md -bottom-10 whitespace-nowrap">
+                        <li class="flex">
+                            <input type="radio" name="difficulty" id="beginner" value="beginner" class="hidden">
+                            <label for="beginner" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Beginner</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="difficulty" id="intermediate" value="intermediate" class="hidden">
+                            <label for="intermediate" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Intermediate</label>
+                        </li>
+                        <li class="flex">
+                            <input type="radio" name="difficulty" id="expert" value="expert" class="hidden">
+                            <label for="expert" class="w-full p-2 duration-300 rounded-md cursor-pointer hover:bg-default-2 hover:text-white">Expert</label>
+                        </li>
+                    </ul>
+                </details>
+                <button class="px-5 py-2 duration-300 rounded-md shadow-inner bg-yellow-1 hover:bg-yellow-2 hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>  
+                </button>
             </div>
-            <button class="px-5 py-2 rounded-md bg-yellow-1 shadow-inner hover:bg-yellow-2 hover:scale-105 duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>  
-            </button>
         </form>
     </div>
+
+    <script src="/static/js/exercises.js"></script>
 {% endblock %}
