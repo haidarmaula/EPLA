@@ -8,10 +8,10 @@
     background-color: #FAEBCD;
 }
 
-details summary svg {
+details summary svg, button svg {
     transition: transform 0.3s ease-in-out;
 }
 
-details[open] summary svg {
+details[open] summary svg, .rotated {
     transform: rotate(180deg);
 }
