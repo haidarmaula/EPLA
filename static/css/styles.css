@@ -4,6 +4,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+#select-exercises[open] summary{
+    background-color: #FAEBCD;
+}
+
 details summary svg {
     transition: transform 0.3s ease-in-out;
 }

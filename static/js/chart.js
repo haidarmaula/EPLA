@@ -56,21 +56,21 @@ fetchData();
 
 exercises.forEach(exercise => {
     exercise.addEventListener('click', event => {
-        toggleOptions();
         fetchData(exercise.id);
+
+        const parentDetails = exercise.closest('details');
+        if (parentDetails) {
+            parentDetails.removeAttribute('open');
+        }
     });
 });
 
-function toggleOptions() {
-    let options = document.getElementById('options');
+const details = document.querySelector('details');
 
-    options.classList.toggle('hidden');
-}
+details.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
 
-document.body.addEventListener('click', event => {
-    let options = document.getElementById('options');
-
-    if (!options.contains(event.target) && event.target.tagName !== 'BUTTON') {
-        options.classList.add('hidden');
-    }
+document.body.addEventListener('click', () => {
+    details.removeAttribute('open');
 });
