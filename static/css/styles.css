@@ -4,7 +4,16 @@
     font-family: 'Poppins', sans-serif;
 }
 
-#select-exercises[open] summary{
+details summary {
+    list-style-type: none;
+}
+
+#schedules[open] summary {
+    background-color: #F7C873;
+    color: black;
+}
+
+#select-exercises[open] summary {
     background-color: #FAEBCD;
 }
 

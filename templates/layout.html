@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.3/dist/cdn.min.js"></script>
+        <script defer src="/static/js/layout.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
@@ -28,38 +28,36 @@
         <link rel="icon" href="/static/images/favicon.png" type="image/png">
         <title>Epla | {% block title %}{% endblock %}</title>
     </head>
-    <body class="flex flex-col min-h-screen justify-between bg-default-1 font-default font-medium">
-        <div class="flex items-center border-b border-yellow-2 p-5">
+    <body class="flex flex-col justify-between min-h-screen font-medium bg-default-1 font-default">
+        <div class="flex items-center p-5 border-b border-yellow-2">
             <a href="/" class="z-10">
                 <img src="/static/images/EPLA.svg">
             </a>
-            <nav class="absolute w-full right-0">
+            <nav class="absolute right-0 w-full">
                 {% if session["user_id"] %}
                     <ul class="relative flex items-center justify-center space-x-5">
-                        <li class="p-2 rounded hover:bg-yellow-1 hover:text-black text-white duration-300"><a href="/exercises">Exercises</a></li>
-                        <div x-data="{open: false}">
-                            <button @click="open = !open" class="p-2 rounded hover:bg-yellow-1 hover:text-black text-white duration-300">Schedules</button>
-                            <div x-show="open" @click.outside="open = false" class="flex w-full justify-center">
-                                <ul class="absolute w-fit p-2 rounded-md bg-white font-light text-center text-black">
-                                    <li class="p-2 rounded-md hover:bg-default-2 hover:text-white duration-300"><a href="/schedules">Add/Change Schedules</a></li>
-                                    <li class="p-2 rounded-md hover:bg-default-2 hover:text-white duration-300"><a href="/track-my-workouts">Track My Workouts</a></li>
-                                </ul> 
-                            </div>
-                        </div>
-                        <li class="p-2 rounded hover:bg-yellow-1 hover:text-black text-white duration-300"><a href="/settings">Settings</a></li>
+                        <li><a href="/exercises" class="p-2 text-white duration-300 rounded hover:bg-yellow-1 hover:text-black">Exercises</a></li>
+                        <details name="schedules" id="schedules" class="space-y-1">
+                            <summary class="p-2 text-white duration-300 rounded cursor-pointer hover:bg-yellow-1 hover:text-black">Schedules</summary>
+                            <ul class="absolute p-2 space-y-2 font-light text-center text-black -translate-x-16 bg-white rounded-md">
+                                <li><a href="/schedules" class="block p-2 duration-300 rounded-md hover:bg-default-2 hover:text-white">Add/Change Schedules</a></li>
+                                <li><a href="/track-my-workouts" class="block p-2 duration-300 rounded-md hover:bg-default-2 hover:text-white">Track My Workouts</a></li>
+                            </ul> 
+                        </details>
+                        <li><a href="/settings" class="p-2 text-white duration-300 rounded hover:bg-yellow-1 hover:text-black">Settings</a></li>
                     </ul>
                 {% else %}
-                    <ul class="flex items-center justify-end">
-                        <li class="mx-5 text-white"><a href="/login" class="delay-75 duration-75 hover:border-b-2 rounded-sm">Login</a></li>
-                        <li class="mx-5 px-5 bg-yellow-1 rounded-md shadow-md hover:bg-yellow-2 transition-colors"><a href="/register">Register</a></li>
+                    <ul class="flex items-center justify-end mr-5 space-x-10">
+                        <li><a href="/login" class="text-white">Login</a></li>
+                        <li class="duration-300 hover:scale-105"><a href="/register" class="px-5 duration-300 rounded-md shadow-md bg-yellow-1 hover:bg-yellow-2">Register</a></li>
                     </ul>
                 {% endif %}
             </nav>
         </div>
         {% if get_flashed_messages() %}
-            <header class="absolute top-20 w-full p-5 flex justify-center items-center bg-yellow-2 font-semibold">
+            <header class="absolute flex items-center justify-center w-full p-5 font-semibold top-20 bg-yellow-2">
                 <p>{{ get_flashed_messages() | join(" ") }}</p>
-                <button name="header-button" type="button" class="absolute right-5 p-1 rounded-md bg-black hover:bg-default-1 hover:scale-105 duration-300">
+                <button name="header-button" type="button" class="absolute p-1 duration-300 bg-black rounded-md right-5 hover:bg-default-1 hover:scale-105">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>                      
@@ -71,7 +69,7 @@
             {% block main %}{% endblock %}
         </main> 
         <footer class="flex justify-center mb-5">
-            <p class="font-light text-xs text-white">© 2023 All Rights Reserved. EPLA</p>
+            <p class="text-xs font-light text-white">© 2023 All Rights Reserved. EPLA</p>
         </footer>
     </body>
 </html>

@@ -65,12 +65,12 @@ exercises.forEach(exercise => {
     });
 });
 
-const details = document.querySelector('details');
+const selectExercises = document.querySelector('[name="select-exercises"]');
 
-details.addEventListener('click', (event) => {
+selectExercises.addEventListener('click', (event) => {
     event.stopPropagation();
 });
 
 document.body.addEventListener('click', () => {
-    details.removeAttribute('open');
+    selectExercises.removeAttribute('open');
 });
