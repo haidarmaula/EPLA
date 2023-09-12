@@ -24,3 +24,7 @@ details summary svg, button svg {
 details[open] summary svg, .rotated {
     transform: rotate(180deg);
 }
+
+#schedules-button-icon {
+    transform: none;
+}

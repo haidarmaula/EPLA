@@ -1,6 +1,6 @@
 let myChart = null;
 
-function createChart (labels, itemData) {
+function createChart(labels, itemData) {
     const ctx = document.getElementById('myChart');
 
     const data = {
