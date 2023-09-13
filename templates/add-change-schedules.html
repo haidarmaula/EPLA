@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 md:gap-20">
+    <div class="space-y-10 mx-7 md:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-20">
         {% for day in exercises %}
             <div class="{% if day == 'sunday' %} col-start-2 {% endif %} space-y-1">
                 <h1 class="p-2 text-xl font-semibold text-center text-black rounded bg-yellow-2">{{ day|title }}</h1>
@@ -14,14 +14,14 @@
                         <input type="hidden" name="remove-exercise" value="{{ exercise }}">
                         <input type="hidden" name="day" value="{{ day }}">
                         <p class="w-full px-2 mr-1 font-light text-center text-white rounded bg-default-3">{{ exercise|title }}</p>
-                        <button type="submit" class="px-2 text-xl rounded bg-yellow-1">-</button>      
+                        <button type="submit" class="px-2 text-xl duration-300 rounded bg-yellow-1 hover:bg-yellow-2">-</button>      
                     </form>
                 {% endfor %}
                 <form action="/schedules" method="post">
                     <input type="hidden" name="day" value="{{ day }}">
                     <div class="flex gap-1">
                         <input type="text" name="exercise" placeholder="Exercise Name" required class="w-full font-light text-white placeholder-white bg-transparent border-b outline-none caret-yellow-2">
-                        <button type="submit" class="px-2 rounded bg-yellow-1">+</button>
+                        <button type="submit" class="px-2 duration-300 rounded bg-yellow-1 hover:bg-yellow-2">+</button>
                     </div>
                 </form>
             </div>
