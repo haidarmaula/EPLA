@@ -51,3 +51,7 @@ details[open] summary svg, .rotated {
 #schedules-button-icon {
     transform: none;
 }
+
+#prev, #next {
+    z-index: 1;
+}
