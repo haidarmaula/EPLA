@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <div class="space-y-10 mx-7 md:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-20">
+    <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-20">
         {% for day in exercises %}
             <div class="{% if day == 'sunday' %} col-start-2 {% endif %} space-y-1">
                 <h1 class="p-2 text-xl font-semibold text-center text-black rounded bg-yellow-2">{{ day|title }}</h1>
