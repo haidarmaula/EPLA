@@ -26,7 +26,7 @@ let calendar = () => {
     let liTag = '';
 
     for (let i = 1; i <= firstDayofThisMonth; i++) {
-        liTag += `<li class="rounded cursor-pointer font-thin hover:bg-default-2">${lastDateofPrevMonth - firstDayofThisMonth + i}</li>`;
+        liTag += `<li class="rounded font-thin">${lastDateofPrevMonth - firstDayofThisMonth + i}</li>`;
     }
 
     if (currentMonth == new Date().getMonth() && currentYear == new Date().getFullYear()) {
@@ -48,7 +48,7 @@ let calendar = () => {
         let daysinOneWeek = 7
 
         for (let i = 1; i < daysinOneWeek - lastDayofThisMonth; i++) {
-            liTag += `<li class="rounded cursor-pointer font-thin hover:bg-default-2">${i}</li>`;
+            liTag += `<li class="rounded font-thin">${i}</li>`;
         }
     }
 
