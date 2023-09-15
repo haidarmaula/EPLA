@@ -114,9 +114,9 @@
             <script defer src="/static/js/sidebar.js"></script>
         </nav>
         {% if get_flashed_messages() %}
-            <header class="absolute flex items-center justify-center w-full p-5 font-semibold top-20 bg-yellow-2">
-                <p>{{ get_flashed_messages() | join(" ") }}</p>
-                <button name="header-button" type="button" class="absolute p-1 duration-300 bg-black rounded-md right-5 hover:bg-default-1 hover:scale-105">
+            <header class="absolute flex items-center justify-end w-full p-5 font-semibold top-20 bg-yellow-2">
+                <p class="absolute left-0 w-full px-10 text-center">{{ get_flashed_messages() | join(" ") }}</p>
+                <button name="header-button" type="button" class="z-10 p-1 duration-300 bg-black rounded-md hover:bg-default-1 hover:scale-105">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>                      

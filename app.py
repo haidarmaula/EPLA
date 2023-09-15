@@ -424,8 +424,6 @@ def change_username():
     con.commit()
     cur.close()
     con.close()
-
-    flash("You have successfully changed your username!")
     
     return jsonify({"response": "success"}), 200
 
@@ -456,8 +454,6 @@ def change_password():
     con.commit()
     cur.close()
     con.close()
-
-    flash("You have successfully changed your password!")
 
     return jsonify({"response": "success"}), 200
 
