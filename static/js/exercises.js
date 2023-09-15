@@ -26,14 +26,14 @@ function setupOptions(summary, options) {
     });
 }
 
-const typeSummary = document.querySelector('summary[name="type"] p');
+const typeSummary = document.querySelector('summary[name="type-summary"] p');
 const typeOptions = document.querySelectorAll('#type-options li label');
 setupOptions(typeSummary, typeOptions);
 
-const muscleSummary = document.querySelector('summary[name="muscle"] p');
+const muscleSummary = document.querySelector('summary[name="muscle-summary"] p');
 const muscleOptions = document.querySelectorAll('#muscle-options li label');
 setupOptions(muscleSummary, muscleOptions);
 
-const difficultySummary = document.querySelector('summary[name="difficulty"] p');
+const difficultySummary = document.querySelector('summary[name="difficulty-summary"] p');
 const difficultyOptions = document.querySelectorAll('#difficulty-options li label');
 setupOptions(difficultySummary, difficultyOptions);

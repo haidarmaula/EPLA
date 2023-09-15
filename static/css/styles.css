@@ -36,6 +36,10 @@ details summary {
     color: black;
 }
 
+#select-exercises {
+    z-index: 11;
+}
+
 #select-exercises[open] summary {
     background-color: #FAEBCD;
 }
@@ -54,4 +58,16 @@ details[open] summary svg, .rotated {
 
 #prev, #next {
     z-index: 1;
+}
+
+#type {
+    z-index: 13;
+}
+
+#muscle {
+    z-index: 12;
+}
+
+#difficulty {
+    z-index: 11;
 }
