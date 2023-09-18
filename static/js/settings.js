@@ -30,16 +30,16 @@ settingForms.forEach(form => {
         const formData = new FormData(form);
 
         let url;
-        let messageEl;
+        let message;
         let headerMessage;
 
         if (form.id === 'change-username-form') {
             url = '/change-username';
-            messageEl = document.getElementById('message1');
+            message = document.getElementById('message1');
             headerMessage = 'You have successfully changed your username!';
         } else {
             url = '/change-password';
-            messageEl = document.getElementById('message2');
+            message = document.getElementById('message2');
             headerMessage = 'You have successfully changed your password!';
         }
 
@@ -52,7 +52,7 @@ settingForms.forEach(form => {
             if (data.response === 'success') {
                 createHeader(headerMessage);
             } else {
-                messageEl.innerText = `${data.message}`;
+                message.innerText = `${data.message}`;
             }
         });
     });

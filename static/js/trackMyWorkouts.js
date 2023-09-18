@@ -10,6 +10,7 @@ let selectedDate = currentDate;
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                 'July', 'August', 'September', 'October', 'November', 'December'];
 
+// Create calendar widget
 let calendar = () => {
     currentCalendar.innerText = `${months[currentMonth]} ${currentYear}`;
 
@@ -25,6 +26,7 @@ let calendar = () => {
     let firstDayofThisMonth = new Date(currentYear, currentMonth, 1).getDay();
     let liTag = '';
 
+    // The last date of last month that falls in the first week of this month
     for (let i = 1; i <= firstDayofThisMonth; i++) {
         liTag += `<li class="rounded font-thin">${lastDateofPrevMonth - firstDayofThisMonth + i}</li>`;
     }
@@ -40,6 +42,7 @@ let calendar = () => {
     } else {
         let lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
+        // Date in this month
         for (let i = 1; i <= lastDateofMonth; i++) {
             liTag += `<li name="date-in-selected-month" class="rounded cursor-pointer hover:bg-default-2">${i}</li>`;
         }
@@ -47,6 +50,7 @@ let calendar = () => {
         let lastDayofThisMonth = new Date(currentYear, currentMonth, lastDateofMonth).getDay();
         let daysinOneWeek = 7
 
+        // The first date of next month that falls in the last week of this month
         for (let i = 1; i < daysinOneWeek - lastDayofThisMonth; i++) {
             liTag += `<li class="rounded font-thin">${i}</li>`;
         }
@@ -62,6 +66,7 @@ let calendar = () => {
             let parameter = `${currentYear}-${currentMonth + 1}-${selectedDate}`;
             let url = `/track-my-workouts?date=${parameter}`;
 
+            // Fetch exercises on the selected date
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
@@ -77,6 +82,7 @@ calendar();
 
 let prevNextIcon = document.querySelectorAll('[name="prevNextIcon"]');
 
+// Calendar navigation
 prevNextIcon.forEach(icon => {
     icon.addEventListener('click', () => {
         currentMonth = icon.id === 'prev' ? currentMonth - 1 : currentMonth + 1;
@@ -95,6 +101,7 @@ prevNextIcon.forEach(icon => {
 
 let exercisesForm = document.querySelectorAll('[name="exercise-form"]');
 
+// Save or delete exercise progress
 exercisesForm.forEach(form => {
     form.addEventListener('submit', event => {
         event.preventDefault();
@@ -132,7 +139,7 @@ exercisesForm.forEach(form => {
             let exerciseNameTag = content.querySelector('[name="exercise"]');
             let exercise = exerciseNameTag.value
 
-            formData.append('remove-exercise', exercise);
+            formData.append('delete-exercise', exercise);
 
             fetch(url, {
                 method: 'POST',

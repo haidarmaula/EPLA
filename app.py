@@ -198,8 +198,8 @@ def exercises():
 @login_required
 def schedules():
     if request.method == "POST":
-        if request.form.get("remove-exercise"):
-            exercise = request.form.get("remove-exercise")
+        if request.form.get("delete-exercise"):
+            exercise = request.form.get("delete-exercise")
             day = request.form.get("day")
 
             con, cur = database()
@@ -281,8 +281,8 @@ def track_my_workouts():
     month_names = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 
     if request.method == "POST":
-        if request.form.get("remove-exercise"):
-            exercise = request.form.get("remove-exercise")
+        if request.form.get("delete-exercise"):
+            exercise = request.form.get("delete-exercise")
             date = request.form.get("date")
 
             if date == "null":

@@ -1,5 +1,6 @@
 let myChart = null;
 
+// Create an exercise progress chart
 function createChart(labels, itemData) {
     const ctx = document.getElementById('myChart');
 
@@ -38,6 +39,7 @@ function createChart(labels, itemData) {
 
 let exercises = document.querySelectorAll('[name="exercise"]')
 
+// Fetch an exercise progress and create a progress chart
 function fetchData(exercise = exercises[0].id) {
     fetch(`/fetch-progress?exercise=${exercise}`)
         .then(response => response.json())

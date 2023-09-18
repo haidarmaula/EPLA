@@ -1,22 +1,24 @@
 const detailsElements = document.querySelectorAll('details');
 
+// Prevents the event from propagating to other elements that may have event listeners for the 'click' event.
 detailsElements.forEach((details) => {
     details.addEventListener('click', (event) => {
         event.stopPropagation();
     });
 });
 
+// Closes the details element when the body element is clicked
 document.body.addEventListener('click', () => {
     detailsElements.forEach((details) => {
         details.removeAttribute('open');
     });
 });
 
+// Change the text in the summary according to the options or labels the user selects
 function setupOptions(summary, options) {
     options.forEach((label) => {
         label.addEventListener('click', () => {
-            const selectedText = label.textContent;
-            summary.textContent = selectedText;
+            summary.textContent = label.textContent;
 
             const parentDetails = label.closest('details');
             if (parentDetails) {

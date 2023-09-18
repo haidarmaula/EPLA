@@ -14,9 +14,9 @@ loginForm.addEventListener('submit', event => {
         if (data.response === 'success') {
             window.location.href = '/';
         } else {
-            const messageEl = document.getElementById('message');
+            const message = document.getElementById('message');
 
-            messageEl.innerText = `${data.message}`;
+            message.innerText = `${data.message}`;
         }
     });
 });
