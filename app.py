@@ -35,6 +35,7 @@ def register():
     return render_template("register.html")
 
 
+# Authenticate user data when registering
 @app.route("/register-auth", methods=["POST"])
 def register_auth():
     username = request.form.get("username")
@@ -74,6 +75,7 @@ def login():
     return render_template("login.html")
 
 
+# Authenticate user data when logging in
 @app.route("/login-auth", methods=["POST"])
 def login_auth():
     username = request.form.get("username")
@@ -125,7 +127,7 @@ def index():
         return render_template("index.html", message=message)
 
     cur.execute("SELECT exercise FROM exercises WHERE user_id = (?)", (session["user_id"],))
-    exercises = cur.fetchall()
+    exercises = cur.fetchall() 
     exercises = [exercise[0] for exercise in exercises]
 
     cur.close()
@@ -142,12 +144,13 @@ def fetch_progress():
     con, cur = database()
 
     cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
-    exercise_id = cur.fetchone()[0]
+    exercise_id = cur.fetchone()[0] 
 
     cur.execute("SELECT * FROM progress WHERE user_id = (?) AND exercise_id = (?)", (session["user_id"], exercise_id))
     progress = cur.fetchall()
     data = {}
 
+    # Initialize data dictionary with keys in the form of dates and values in the form of training volume (weight x reps x sets)
     for record in progress:
         date = record[5]
         date = datetime.strptime(date, "%Y-%m-%d")
@@ -198,6 +201,8 @@ def exercises():
 @login_required
 def schedules():
     if request.method == "POST":
+
+        # Delete existing exercise
         if request.form.get("delete-exercise"):
             exercise = request.form.get("delete-exercise")
             day = request.form.get("day")
@@ -220,6 +225,7 @@ def schedules():
             cur.close()
             con.close()
 
+        # Save new exercise
         else:
             day = request.form.get("day")
             exercise = request.form.get("exercise")
@@ -254,6 +260,7 @@ def schedules():
 
     con, cur = database()
 
+    # Retrieves the user's workout schedule from Monday to Sunday
     for row in exercises:
         cur.execute("SELECT exercise_id FROM schedules WHERE user_id = (?) AND day = (?)", (session["user_id"], row))
         exercise_id = cur.fetchall()
@@ -281,6 +288,8 @@ def track_my_workouts():
     month_names = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 
     if request.method == "POST":
+        
+        # Delete existing workout progress
         if request.form.get("delete-exercise"):
             exercise = request.form.get("delete-exercise")
             date = request.form.get("date")
@@ -303,7 +312,8 @@ def track_my_workouts():
             response = {'status': 'success'}
 
             return jsonify(response)
-
+        
+        # Save workout progress
         else:
             exercise = request.form.get("exercise")
             weight = request.form.get("weight")
@@ -373,6 +383,7 @@ def track_my_workouts():
 
     exercises = {exercise: [] for exercise in results}
 
+    # Retrieve user's workout progress
     for exercise in exercises:
         cur.execute("SELECT id FROM exercises WHERE user_id = (?) AND exercise = (?)", (session["user_id"], exercise))
         exercise_id = cur.fetchone()[0]
