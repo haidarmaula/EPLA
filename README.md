@@ -10,7 +10,7 @@ A fitness plan maker web application built to help users search for types of exe
 - Javascript
 - Python
 - Tailwind CSS
-- Alpine js
+- Chart js
 - Flask
 - SQLite
 
