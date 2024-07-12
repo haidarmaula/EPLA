@@ -1,0 +1,28 @@
+# Abaikan file konfigurasi editor
+*.vscode/
+*.idea/
+
+# Abaikan file dan direktori build
+build/
+dist/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Abaikan file environment dan virtual environment
+.env
+*.env
+venv/
+env/
+.venv/
+ENV/
+
+# Abaikan file yang terkait dengan version control
+.git/
+.gitignore
+
+# Abaikan file yang mungkin besar atau tidak relevan
+*.log
+*.sqlite3
+.DS_Store
