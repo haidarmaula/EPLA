@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 import requests
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
@@ -14,11 +15,9 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_PERMANENT"] = False
 Session(app)
 
-# Make sure API key is set
-API_KEY = os.environ.get("API_KEY")
-
-if not API_KEY:
-    raise RuntimeError("API_KEY not set")
+# Set API key
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
 
 
 # Ensure responses aren't cached
@@ -470,4 +469,7 @@ def change_password():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    if os.getenv('FLASK_ENV') == 'dev':
+        app.run(debug=True)        
+    else:
+        app.run(host="0.0.0.0", port=5000)

@@ -157,21 +157,6 @@
     <footer class="z-10 flex justify-center mb-5">
         <p class="text-xs font-light text-white">© 2023 All Rights Reserved. EPLA</p>
     </footer>
-    {% if session["user_id"] %}
-    <script type="text/javascript">
-            (function (d, t) {
-                var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                v.onload = function () {
-                    window.voiceflow.chat.load({
-                        verify: { projectID: '662f78c1ab98d49c7a2c9929' },
-                        url: 'https://general-runtime.voiceflow.com',
-                        versionID: 'production'
-                    });
-                }
-                v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-            })(document, 'script');
-    </script>
-    {% endif %}
 </body>
 
 </html>
